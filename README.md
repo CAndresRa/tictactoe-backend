@@ -2,5 +2,5 @@
 
 ### Despliegue en heroku 
 
-https://tictactoearsw.herokuapp.com/
-https://carlostictactoeback.herokuapp.com/
+- https://tictactoearsw.herokuapp.com/
+- https://carlostictactoeback.herokuapp.com/
