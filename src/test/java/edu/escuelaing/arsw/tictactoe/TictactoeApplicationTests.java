@@ -6,8 +6,11 @@ package edu.escuelaing.arsw.tictactoe;
 @SpringBootTest
 class TictactoeApplicationTests {
 
+    /*
     @Test
     void contextLoads() {
     }
+
+     */
 
 }
