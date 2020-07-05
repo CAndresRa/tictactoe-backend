@@ -20,13 +20,13 @@ import java.util.logging.Logger;
 public class EndPointToGame {
     static Queue<Room> rooms = new ConcurrentLinkedQueue<>();
     static Queue<String> namesOfRooms = new ConcurrentLinkedQueue<>();
-
-    private static final Logger logger = Logger.getLogger(EndPointTicTacToe.class.getName());
+    private static final Logger logger = Logger.getLogger(EndPointToGame.class.getName());
     Session ownSession = null;
 
     @OnOpen
     public void openConnection(Session session, @PathParam("room") String room) {
         if(namesOfRooms.contains(room)){
+            System.out.println("LA QUE ME PAREO DEBIO ABORTARME ");
             for(Room r : rooms){
                 if(r.getName().equals(room)){
                     r.addSession(session);
@@ -34,6 +34,7 @@ public class EndPointToGame {
             }
         }
         else {
+            System.out.println("HIJA DE PUTA VIDA DE LA PUTA MIERDA");
             Room r = new Room(room);
             namesOfRooms.add(room);
             rooms.add(r);
@@ -46,8 +47,6 @@ public class EndPointToGame {
         } catch (IOException ex) {
             logger.log(Level.SEVERE, null, ex);
         }
-
-        System.out.println(rooms);
 
         for(Room r : rooms ){
             for(Session s: r.getMySessions()) {
@@ -72,13 +71,24 @@ public class EndPointToGame {
     }
 
     public  void broadcast(Room room, Session session, String message) throws IOException {
-
-        for(Session s: room.getMySessions()){
-            if(!s.equals(session)){
-                s.getBasicRemote().sendText(message);
+        if (message.equals("back")) {
+            String messageToSend = room.deleteLastState();
+            if (messageToSend != null) {
+                for (Session s : room.getMySessions()) {
+                    s.getBasicRemote().sendText(messageToSend);
+                }
+            }
+        } else {
+            room.addState(message);
+            for (Session s : room.getMySessions()) {
+                if (!s.equals(session)) {
+                    s.getBasicRemote().sendText(message);
+                }
             }
         }
     }
+
+
 
     @OnMessage
     public void processPoint(String message, Session session) throws IOException {
