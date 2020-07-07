@@ -45,7 +45,7 @@ public class Room {
     }
 
     public String deleteLastState(){
-        if(states.size() > 1) {
+        if(states.size() > 0) {
             states.remove(states.size() - 1);
             return states.get(states.size() - 1);
         }
