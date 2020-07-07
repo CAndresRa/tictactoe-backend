@@ -1,13 +1,12 @@
-package edu.escuelaing.arsw.tictactoe;
+package edu.escuelaing.arsw.tictactoe.endpoint;
 
+import edu.escuelaing.arsw.tictactoe.entity.Room;
 import org.springframework.stereotype.Component;
-
 import javax.websocket.OnMessage;
 import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
-
 import java.io.IOException;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -18,27 +17,36 @@ import java.util.logging.Logger;
 @Component
 @ServerEndpoint("/room/{room}")
 public class EndPointToGame {
+    //@Inject
+    //private RoomService roomService;
+
     static Queue<Room> rooms = new ConcurrentLinkedQueue<>();
     static Queue<String> namesOfRooms = new ConcurrentLinkedQueue<>();
     private static final Logger logger = Logger.getLogger(EndPointToGame.class.getName());
     Session ownSession = null;
 
+    /**
+     * @param session
+     * @param room
+     */
     @OnOpen
-    public void openConnection(Session session, @PathParam("room") String room) {
+    public void openConnection(Session session, @PathParam("room") String room) throws IOException {
         if(namesOfRooms.contains(room)){
-            System.out.println("LA QUE ME PAREO DEBIO ABORTARME ");
             for(Room r : rooms){
                 if(r.getName().equals(room)){
                     r.addSession(session);
+                    if(r.getStates().size() > 0){
+                        session.getBasicRemote().sendText(r.getStates().get(r.getStates().size() - 1));
+                    }
                 }
             }
         }
         else {
-            System.out.println("HIJA DE PUTA VIDA DE LA PUTA MIERDA");
             Room r = new Room(room);
             namesOfRooms.add(room);
             rooms.add(r);
             r.addSession(session);
+        //  roomService.create(r);
         }
         ownSession = session;
         logger.log(Level.INFO, "Connection opened.");
@@ -57,6 +65,12 @@ public class EndPointToGame {
     }
 
     /* Call this method to send a message to all clients */
+
+    /**
+     * @param message
+     * @param session
+     * @throws IOException
+     */
     public void send(String message, Session session) throws IOException {
         Room isInRoom = null;
         for(Room r: rooms){
@@ -70,6 +84,13 @@ public class EndPointToGame {
         broadcast(isInRoom, session , message);
     }
 
+    /**
+     *
+     * @param room
+     * @param session
+     * @param message
+     * @throws IOException
+     */
     public  void broadcast(Room room, Session session, String message) throws IOException {
         if (message.equals("back")) {
             String messageToSend = room.deleteLastState();
@@ -87,8 +108,6 @@ public class EndPointToGame {
             }
         }
     }
-
-
 
     @OnMessage
     public void processPoint(String message, Session session) throws IOException {

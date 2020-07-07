@@ -1,4 +1,7 @@
-package edu.escuelaing.arsw.tictactoe;
+package edu.escuelaing.arsw.tictactoe.entity;
+
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.websocket.Session;
 import java.util.ArrayList;
@@ -6,10 +9,14 @@ import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
+@Document
 public class Room {
+    @Id
     private String name;
+
     private Queue<Session> mySessions;
     private List<String> states;
+
 
     public Room(String name){
         this.name = name;
@@ -45,7 +52,16 @@ public class Room {
         return null;
     }
 
-    public void addState(String state){
+    public void addState(String state) {
         states.add(state);
     }
+
+    public List<String> getStates() {
+        return states;
+    }
+
+    public void setStates(List<String> states) {
+        this.states = states;
+    }
+
 }
