@@ -16,12 +16,18 @@ public class Room {
 
     private Queue<Session> mySessions;
     private List<String> states;
+    private String saveState;
 
 
     public Room(String name){
         this.name = name;
         this.mySessions = new ConcurrentLinkedQueue<>();
         this.states = new ArrayList<>();
+    }
+
+    public Room(String name, String saveState){
+        this.name = name;
+        this.saveState = saveState;
     }
 
     public String getName() {

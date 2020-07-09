@@ -10,4 +10,6 @@ public interface RoomService {
      */
     Room create(Room room);
 
+    Boolean existRoom(String roomName);
+
 }

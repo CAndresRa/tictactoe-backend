@@ -17,4 +17,9 @@ public class RoomServiceImpl implements RoomService {
         return roomRepository.save(room);
     }
 
+    @Override
+    public Boolean existRoom(String roomName) {
+        return roomRepository.existsById(roomName);
+    }
+
 }
