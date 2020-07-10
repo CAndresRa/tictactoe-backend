@@ -5,6 +5,7 @@ import edu.escuelaing.arsw.tictactoe.repository.RoomRepository;
 import edu.escuelaing.arsw.tictactoe.services.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import java.util.List;
 
 @Service
 public class RoomServiceImpl implements RoomService {
@@ -22,4 +23,11 @@ public class RoomServiceImpl implements RoomService {
         return roomRepository.existsById(roomName);
     }
 
+    @Override
+    public List<Room> sendLastState(String roomName) {
+        List<Room> rooms = roomRepository.findByName(roomName);
+        return rooms;
+    }
+
 }
+

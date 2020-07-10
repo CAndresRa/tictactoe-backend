@@ -17,9 +17,6 @@ import java.util.logging.Logger;
 @Component
 @ServerEndpoint("/room/{room}")
 public class EndPointToGame {
-    //@Inject
-    //private RoomService roomService;
-
     static Queue<Room> rooms = new ConcurrentLinkedQueue<>();
     static Queue<String> namesOfRooms = new ConcurrentLinkedQueue<>();
     private static final Logger logger = Logger.getLogger(EndPointToGame.class.getName());

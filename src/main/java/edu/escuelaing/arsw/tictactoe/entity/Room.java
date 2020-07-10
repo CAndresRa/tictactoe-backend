@@ -16,8 +16,10 @@ public class Room {
 
     private Queue<Session> mySessions;
     private List<String> states;
+
     private String saveState;
 
+    public Room(){}
 
     public Room(String name){
         this.name = name;
@@ -68,6 +70,14 @@ public class Room {
 
     public void setStates(List<String> states) {
         this.states = states;
+    }
+
+    public void setSaveState(String saveState) {
+        this.saveState = saveState;
+    }
+
+    public String getSaveState() {
+        return saveState;
     }
 
 }

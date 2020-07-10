@@ -2,6 +2,8 @@ package edu.escuelaing.arsw.tictactoe.services;
 
 import edu.escuelaing.arsw.tictactoe.entity.Room;
 
+import java.util.List;
+
 public interface RoomService {
 
     /**
@@ -11,5 +13,7 @@ public interface RoomService {
     Room create(Room room);
 
     Boolean existRoom(String roomName);
+
+    List<Room> sendLastState(String roomName);
 
 }
