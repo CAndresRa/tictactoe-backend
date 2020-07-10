@@ -43,7 +43,6 @@ public class EndPointToGame {
             namesOfRooms.add(room);
             rooms.add(r);
             r.addSession(session);
-        //  roomService.create(r);
         }
         ownSession = session;
         logger.log(Level.INFO, "Connection opened.");
