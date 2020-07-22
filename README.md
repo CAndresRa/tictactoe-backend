@@ -1,4 +1,7 @@
 # Tic Tac Toe - Spring, React y MongoDB 
+
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/b6ac35c679c14c6bb33750bfbdff587b)](https://app.codacy.com/manual/CAndresRa/tictactoe-backend?utm_source=github.com&utm_medium=referral&utm_content=CAndresRa/tictactoe-backend&utm_campaign=Badge_Grade_Settings)
+
 ### Autor: Carlos Andrés Ramírez Torres
 ### Fecha: Lunes, 6 de Julio del 2020
 ##### LOC/h: 2019/16 = 126.18 LOC/h
